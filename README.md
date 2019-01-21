@@ -95,7 +95,7 @@ As before, they start relatively easy and get more involved.
 
 * A user should see the values of the Fibonacci sequence up to 10
 * A user should see the values of the Triangle numbers sequence up to 10
-* A user should see the combined values of the Fibonacci and Triangle numbers sequence up to 10
+* A user should see the combined values of the Fibonacci and Triangle numbers sequence up to 10 (if you implemented the above)
 * A user should see the values of a sequence in a scatter or line chart
 * A user should be able to toggle whether a sequence is displayed or not
 * A user should be able to set the number of displayed values in the sequence
@@ -115,4 +115,4 @@ Once you've finished the assignment, please submit a [merge request](https://doc
 
 ## Questions?
 
-If you have any questions about the exercise, please contact [mailto:dan@messly.co.uk](dan@messly.co.uk)
+If you have any questions about the exercise, please contact dan@messly.co.uk
