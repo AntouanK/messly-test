@@ -41,12 +41,12 @@ Finally, we promise that we'll reciprocally feedback on your work, and will disc
 
 ### Getting Started
 
-#### Requirements
+#### Requirements
 
 - You'll need a working version of node.js installed with npm.
 - You'll need a GitLab account to fork the repository into.
 
-#### Install
+#### Install
 
 1. Fork the repository into your own GitLab remote and clone a local copy.
 2. To setup the dependencies: `npm install`
@@ -72,7 +72,7 @@ The challenge is to create a data visualisation application. Attempt as much as
 you feel comfortable doing. If you are only attempting the front-end, skip to
 the [front-end](#front-end) part of the exercise.
 
-### Back-end
+### Back-end
 
 Your task is to create a generator function that takes an arbitrary number of
 ordered iterable objects, and emits their values in ascending order. We're
@@ -104,7 +104,7 @@ As before, they start relatively easy and get more involved.
 
 Once you've implemented as much as you can, apply some CSS to make it look presentable.
 
-### General Points
+### General Points
 
 - The exercise was created using [create react app](https://github.com/facebook/create-react-app). The source code lives in `src/`, with the unit tests in `src/__test/`
 - You can use any extra library / tool that you see fit
