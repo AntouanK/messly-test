@@ -1,68 +1,118 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Messly
+## JavaScript Developer Assessment
 
-## Available Scripts
+### Introduction
 
-In the project directory, you can run:
+To support our on-boarding process for new JavaScript developers, this
+technical assessment helps us to gauge your technical ability and understanding
+against our preferred way of working, via a short exercise to create a data
+visualisation component, written in React.
 
-### `npm start`
+The challenge is to make an application that takes data from JavaScript generator
+functions and visualises them on the screen. There are both front-end and back-end
+components to the challenge, and it is sufficiently open-ended to allow you to
+attempt as much or as little as you feel able to.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+While there is no time limit, we estimate that the entire challenge should take somewhere between 4-8 hours to complete. If you attempt only the front-end portion, expect it to take between 2-4 hours.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+#### Why we assess candidates
 
-### `npm test`
+Before we ask you spend time on a technical assessment, I think it's important to explain
+what it is that we're looking for, and how it feeds into our decision making
+process.
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+This test is designed to assess your ability to do the following:
 
-### `npm run build`
+1. To read and write JavaScript. Quite important really ;)
+2. To read a README to find instructions
+3. To read and follow online technical references
+4. To understand requirements from reading unit tests
+5. To iteratively improve your code using test-driven development
+6. To create front-end components using React
+7. To show initiative in interpreting product requirements and finding solutions
+8. To present your work in a professional way
+9. To work with git and source control
+10. Have fun creating new code!
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+This isn't a 'test', in the sense that you can do something wrong. We want to
+see how far you get, how long you spend on it and how enthusiastically you take on the challenge. We'll consider this against your background and experience; so if you're a junior and only get part-way through, that's great! It tells us what you already know and how much input you'll need from us.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+Finally, we promise that we'll reciprocally feedback on your work, and will discuss it in the next interview stage.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Getting Started
 
-### `npm run eject`
+#### Requirements
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- You'll need a working version of node.js installed with npm.
+- You'll need a GitLab account to fork the repository into.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### Install
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+1. Fork the repository into your own GitLab remote and clone a local copy.
+2. To setup the dependencies: `npm install`
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+#### Running the tests
 
-## Learn More
+`npm test`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Alternatively, you can run individual parts of the unit test at a time, using
+a partial match of the test name. E.g. to run the first combined generator test:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+`npm test -- -t "with no generators"`
 
-### Code Splitting
+#### Running the application
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+This command opens the default 'Hello World' React app on [http://localhost:3000](http://localhost:3000)
 
-### Analyzing the Bundle Size
+`npm start`
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+## TODO
 
-### Making a Progressive Web App
+The challenge is to create a data visualisation application. Attempt as much as
+you feel comfortable doing. If you are only attempting the front-end, skip to
+the [front-end](#front-end) part of the exercise.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+### Back-end
 
-### Advanced Configuration
+Your task is to create a generator function that takes an arbitrary number of
+ordered iterable objects, and emits their values in ascending order. We're
+assuming that the input interables contain only numeric values in ascending order.
+The sequences can be either finite, such as an array, or infinte.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+1. Read the unit tests in the `src/__test__` folder. We've implemented two
+generator functions that generate the Fibonacci sequence and triangle numbers.
 
-### Deployment
+2. Read the documentation on [iterator protocols](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol) and [generator functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*). You'll most probably need to refer back to these later.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+3. Read the specification in the `src/__test__/combined_ordered_generator_test.js`. You can run the test using `npm test`. Implement the generator in `src/lib/generators/combined.js`, to make the tests pass. Attempt each test in order, and refactor as you go, rather than attempting to satisfy all the conditions at once. The tests start off relatively easy, before getting more complicated. Implement as much as you can.
 
-### `npm run build` fails to minify
+### <a name="front-end"></a> Front-end
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Your task is to create a React component that visualises the data that the
+generators emit, in a user-friendly way. You have got some creative license here,
+to deliver on the following user requirements as you interpret them.
+As before, they start relatively easy and get more involved.
+
+* A user should see the values of the Fibonacci sequence up to 10
+* A user should see the values of the Triangle numbers sequence up to 10
+* A user should see the combined values of the Fibonacci and Triangle numbers sequence up to 10
+* A user should see the values of a sequence in a scatter or line chart
+* A user should be able to toggle whether a sequence is displayed or not
+* A user should be able to set the number of displayed values in the sequence
+* A user should see an error message if they set the number of displayed values above 200, or below 0
+* A user should see the data on a mobile or a desktop device
+
+Once you've implemented as much as you can, apply some CSS to make it look presentable.
+
+### General Points
+
+- The exercise was created using [create react app](https://github.com/facebook/create-react-app). The source code lives in `src/`, with the unit tests in `src/__test/`
+- You can use any extra library / tool that you see fit
+
+## Submission
+
+Once you've finished the assignment, please submit a [merge request](https://docs.gitlab.com/ee/gitlab-basics/add-merge-request.html). We'll aim to review and get back to you within 24 hours with next steps.
+
+## Questions?
+
+If you have any questions about the exercise, please contact [mailto:dan@messly.co.uk](dan@messly.co.uk)
