@@ -1,6 +1,6 @@
-import fibonacci from '../lib/generators/fibonacci';
-import triangle from '../lib/generators/triangle';
-import combined from '../lib/generators/combined';
+import fibonacci from "../lib/generators/fibonacci";
+import triangle from "../lib/generators/triangle";
+import combined from "../lib/generators/combined";
 
 describe("Combined generator", () => {
   describe("with no generators", () => {
@@ -56,11 +56,32 @@ describe("Combined generator", () => {
 
     let sequence = [];
 
-    for(let i = 0; i < 20; i++) {
+    for (let i = 0; i < 20; i++) {
       sequence.push(generator.next().value);
     }
 
-    expect(sequence).toEqual([0, 1, 1, 1, 2, 2, 3, 3, 4, 5, 5, 6, 7, 8, 8, 9, 10, 13, 21, 34]);
+    expect(sequence).toEqual([
+      0,
+      1,
+      1,
+      1,
+      2,
+      2,
+      3,
+      3,
+      4,
+      5,
+      5,
+      6,
+      7,
+      8,
+      8,
+      9,
+      10,
+      13,
+      21,
+      34
+    ]);
   });
 
   describe("with two infinite sequences", () => {
@@ -68,19 +89,44 @@ describe("Combined generator", () => {
 
     let sequence = [];
 
-    for(let i = 0; i < 20; i++) {
+    for (let i = 0; i < 20; i++) {
       sequence.push(generator.next().value);
     }
 
-    expect(sequence).toEqual([0, 0, 1, 1, 1, 2, 3, 3, 5, 6, 8, 10, 13, 15, 21, 21, 28, 34, 36, 45]);
+    expect(sequence).toEqual([
+      0,
+      0,
+      1,
+      1,
+      1,
+      2,
+      3,
+      3,
+      5,
+      6,
+      8,
+      10,
+      13,
+      15,
+      21,
+      21,
+      28,
+      34,
+      36,
+      45
+    ]);
   });
 
   describe("with three finite sequences", () => {
-    let generator = combined([1, 2, 3, 4, 5], [1, 2, 3], [4, 5, 6, 7, 8, 9, 10]);
+    let generator = combined(
+      [1, 2, 3, 4, 5],
+      [1, 2, 3],
+      [4, 5, 6, 7, 8, 9, 10]
+    );
 
     let sequence = [];
 
-    for(let i = 0; i < 15; i++) {
+    for (let i = 0; i < 15; i++) {
       sequence.push(generator.next().value);
     }
 
@@ -92,7 +138,7 @@ describe("Combined generator", () => {
 
     let sequence = [];
 
-    for(let i = 0; i < 12; i++) {
+    for (let i = 0; i < 12; i++) {
       sequence.push(generator.next().value);
     }
 

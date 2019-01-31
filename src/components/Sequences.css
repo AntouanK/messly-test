@@ -1,0 +1,12 @@
+
+.Sequences {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.sequence-error {
+    color: #f95d5d;
+    padding: 8px;
+    background-color: #222;
+}

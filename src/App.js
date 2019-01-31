@@ -1,26 +1,32 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
+import SequencesContainer from "./components/SequencesContainer";
+import { Provider } from "react-redux";
+import store from "./redux/store";
+import { addSequence } from "./redux/actions";
 
 class App extends Component {
+  componentDidMount() {
+    store.dispatch(addSequence({ type: "fibonacci", maxValues: 10 }));
+    store.dispatch(addSequence({ type: "triangle", maxValues: 10 }));
+    store.dispatch(
+      addSequence({ type: ["fibonacci", "triangle"], maxValues: 10 })
+    );
+    store.dispatch(
+      addSequence({ type: "fibonacci", maxValues: 10, displayType: "line" })
+    );
+    store.dispatch(
+      addSequence({ type: "triangle", maxValues: 30, displayType: "scatter" })
+    );
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Provider store={store}>
+        <div className="App">
+          <SequencesContainer />
+        </div>
+      </Provider>
     );
   }
 }

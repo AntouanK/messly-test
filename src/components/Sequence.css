@@ -1,0 +1,37 @@
+.sequence {
+    color: #DEDEDE;
+    border: 2px solid #262626;
+    background-color: #232323;
+    margin: 4px;
+    padding: 4px;
+    text-align: right;
+    overflow-x: auto;
+}
+
+.sequence-name {
+    display: flex;
+    flex-direction: column;
+    padding: 6px 0;
+}
+
+.sequence-type {
+    font-weight: bold;
+}
+
+.close-link {
+    cursor: pointer;
+    text-decoration: underline;
+    opacity: 0.5;
+}
+.close-link:hover {
+    opacity: 1;
+}
+
+.input-max-value {
+    width: 40px;
+    box-shadow: 0 0 0 0 #000;
+    transition: box-shadow 0.25s ease-out;
+}
+.input-max-value.error {
+    box-shadow: 0 0 1px 4px #ed1616b3;
+}
