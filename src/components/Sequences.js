@@ -7,9 +7,11 @@ class Sequences extends Component {
     const { sequences } = this.props;
     return (
       <div className="Sequences">
-        {sequences.map((sequence, i) => (
-          <Sequence key={i} {...sequence} />
-        ))}
+        {sequences
+          .filter(seq => seq.displayed === true)
+          .map(sequence => (
+            <Sequence key={sequence.id} {...sequence} />
+          ))}
       </div>
     );
   }

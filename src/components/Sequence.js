@@ -6,15 +6,38 @@ import {
   CartesianGrid,
   XAxis,
   YAxis,
-  ZAxis,
   Scatter,
   LineChart,
   Line
 } from "recharts";
+import { setSequenceDisplayed } from "../redux/actions.js";
+import store from "../redux/store";
 
+//
+// a small close link to hide that sequence
+const Close = id => (
+  <div>
+    <span
+      className="close-link"
+      onClick={() =>
+        store.dispatch(
+          setSequenceDisplayed({
+            id,
+            displayed: false
+          })
+        )
+      }
+    >
+      [close]
+    </span>
+  </div>
+);
+
+//
+//
 class Sequence extends Component {
   render() {
-    const { data, type, maxValues, displayType } = this.props;
+    const { id, data, type, maxValues, displayType } = this.props;
     const name = ` up to ${maxValues}`;
 
     let contents;
@@ -60,6 +83,7 @@ class Sequence extends Component {
 
     return (
       <div className="sequence">
+        {Close(id)}
         <div className="sequence-name">
           <span className="sequence-type">{type}</span>
           {name}

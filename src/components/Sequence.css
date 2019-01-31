@@ -14,3 +14,12 @@
 .sequence-type {
     font-weight: bold;
 }
+
+.close-link {
+    cursor: pointer;
+    text-decoration: underline;
+    opacity: 0.5;
+}
+.close-link:hover {
+    opacity: 1;
+}

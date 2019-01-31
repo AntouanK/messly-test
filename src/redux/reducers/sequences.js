@@ -1,4 +1,4 @@
-import { ADD_SEQUENCE } from "../action-types";
+import { ADD_SEQUENCE, SET_SEQUENCE_DISPLAYED } from "../action-types";
 import fibonacci from "../../lib/generators/fibonacci";
 import triangle from "../../lib/generators/triangle";
 import combined from "../../lib/generators/combined";
@@ -29,7 +29,6 @@ const getValues = generator => maxValues => {
   for (let i = 0; i < maxValues; i += 1) {
     data.push(generator.next().value);
   }
-
   return data;
 };
 
@@ -54,10 +53,12 @@ export default function(state = initialState, action) {
       }
 
       let newSequence = {
+        id: "sequence-" + Date.now(),
         type: newType,
         maxValues,
         displayType,
-        data: getValues(generator)(maxValues)
+        data: getValues(generator)(maxValues),
+        displayed: true
       };
 
       const sequences = state.sequences.concat(newSequence);
@@ -66,6 +67,31 @@ export default function(state = initialState, action) {
         ...state,
         sequences
       };
+    }
+
+    case SET_SEQUENCE_DISPLAYED: {
+      const { sequences } = state;
+      const { id, displayed } = action.payload;
+      if (typeof id !== "string" || typeof displayed !== "boolean") {
+        throw new Error("wrong payload type");
+      }
+
+      const sequenceToModify = sequences.filter(s => s.id === id).pop();
+
+      if (sequenceToModify === undefined) {
+        return state;
+      } else {
+        const newSequences = sequences.map(seq => {
+          if (seq.id === id) {
+            seq.displayed = displayed;
+          }
+          return seq;
+        });
+        return {
+          ...state,
+          sequences: newSequences
+        };
+      }
     }
 
     default:
