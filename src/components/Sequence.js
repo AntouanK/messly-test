@@ -93,7 +93,7 @@ const getLineChart = data => {
 //
 class Sequence extends Component {
   render() {
-    const { id, data, type, maxValues, displayType, displayed } = this.props;
+    const { id, data, label, maxValues, displayType, displayed } = this.props;
 
     let contents;
 
@@ -116,15 +116,17 @@ class Sequence extends Component {
       <div className="sequence">
         {Close(id)(displayed)}
         <div className="sequence-name">
-          <span className="sequence-type">{type}</span>
-          {" up to "}
-          <input
-            type="number"
-            className="input-max-value"
-            id={id + "-max-values"}
-            value={maxValues}
-            onChange={onChangeMaxValues(id)}
-          />
+          <span className="sequence-type">{label}</span>
+          <div>
+            {"max values: "}
+            <input
+              type="number"
+              className="input-max-value"
+              id={id + "-max-values"}
+              value={maxValues}
+              onChange={onChangeMaxValues(id)}
+            />
+          </div>
         </div>
         {contents}
       </div>

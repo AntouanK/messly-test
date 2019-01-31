@@ -7,8 +7,9 @@
 }
 
 .sequence-name {
+    display: flex;
+    flex-direction: column;
     padding: 4px 0;
-    text-decoration: underline;
 }
 
 .sequence-type {

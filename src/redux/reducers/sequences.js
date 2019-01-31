@@ -59,15 +59,16 @@ export default function(state = initialState, action) {
   switch (action.type) {
     case ADD_SEQUENCE: {
       const { type, maxValues, displayType = "values" } = action.payload;
-      let newType = type;
+      let label = type;
       if (Array.isArray(type)) {
-        newType = type.join(" + ");
+        label = type.join(" + ");
       }
       const data = getData(type)(maxValues);
 
       let newSequence = {
         id: "sequence-" + Date.now(),
-        type: newType,
+        label,
+        type,
         maxValues,
         displayType,
         data,
