@@ -4,12 +4,14 @@ import SequenceItem from "./SequenceItem";
 
 class Sequence extends Component {
   render() {
-    const { data, name, upTo } = this.props;
+    const { data, type, maxValues } = this.props;
+    const name = ` up to ${maxValues}`;
+
     return (
-      <div className="Sequence">
-        <div>
-          <div>Sequence name: {name}</div>
-          <div>up to: {upTo}</div>
+      <div className="sequence">
+        <div className="sequence-name">
+          <span className="sequence-type">{type}</span>
+          {name}
         </div>
         {data.map((value, i) => (
           <SequenceItem value={value} key={i} />

@@ -1,6 +1,16 @@
-.Sequence {
+.sequence {
     color: #DEDEDE;
     border: 1px solid grey;
     background-color: #232323;
     padding: 4px;
+    text-align: right;
+}
+
+.sequence-name {
+    padding: 4px 0;
+    text-decoration: underline;
+}
+
+.sequence-type {
+    font-weight: bold;
 }
