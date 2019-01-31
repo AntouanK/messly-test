@@ -14,8 +14,8 @@ import { setSequenceDisplayed } from "../redux/actions.js";
 import store from "../redux/store";
 
 //
-// a small close link to hide that sequence
-const Close = id => (
+// a small close link to hide/show that sequence
+const Close = id => displayed => (
   <div>
     <span
       className="close-link"
@@ -23,67 +23,82 @@ const Close = id => (
         store.dispatch(
           setSequenceDisplayed({
             id,
-            displayed: false
+            displayed: !displayed
           })
         )
       }
     >
-      [close]
+      [{displayed === true ? "close" : "open"}]
     </span>
   </div>
 );
+
+const getScatterChart = data => {
+  const dataCoordinates = data.map((value, i) => ({
+    x: i,
+    y: value
+  }));
+  return (
+    <ScatterChart
+      width={Math.max(130 + data.length * 30, 830)}
+      height={250}
+      margin={{ top: 20, right: 20, bottom: 10, left: 10 }}
+    >
+      <CartesianGrid strokeDasharray="2 2" />
+      <XAxis dataKey="x" name="" unit="" />
+      <YAxis dataKey="y" name="" unit="" />
+      <Scatter name="values" data={dataCoordinates} fill="#DCFCDC" />
+    </ScatterChart>
+  );
+};
+
+const getLineChart = data => {
+  const dataCoordinates = data.map((value, i) => ({
+    x: i,
+    y: value
+  }));
+  return (
+    <LineChart
+      width={Math.max(130 + data.length * 30, 830)}
+      height={250}
+      margin={{ top: 20, right: 20, bottom: 10, left: 10 }}
+      data={dataCoordinates}
+    >
+      <CartesianGrid strokeDasharray="2 2" />
+      <XAxis dataKey="x" name="" unit="" />
+      <YAxis dataKey="y" name="" unit="" />
+      <Line type="monotone" dataKey="y" stroke="#DCFCDC" />
+    </LineChart>
+  );
+};
 
 //
 //
 class Sequence extends Component {
   render() {
-    const { id, data, type, maxValues, displayType } = this.props;
+    const { id, data, type, maxValues, displayType, displayed } = this.props;
     const name = ` up to ${maxValues}`;
 
     let contents;
 
-    if (displayType === "values") {
-      contents = data.map((value, i) => <SequenceItem value={value} key={i} />);
-    } else if (displayType === "scatter") {
-      const dataCoordinates = data.map((value, i) => ({
-        x: i,
-        y: value
-      }));
-      contents = (
-        <ScatterChart
-          width={Math.max(130 + data.length * 30, 830)}
-          height={250}
-          margin={{ top: 20, right: 20, bottom: 10, left: 10 }}
-        >
-          <CartesianGrid strokeDasharray="2 2" />
-          <XAxis dataKey="x" name="" unit="" />
-          <YAxis dataKey="y" name="" unit="" />
-          <Scatter name="values" data={dataCoordinates} fill="#DCFCDC" />
-        </ScatterChart>
-      );
-    } else if (displayType === "line") {
-      const dataCoordinates = data.map((value, i) => ({
-        x: i,
-        y: value
-      }));
-      contents = (
-        <LineChart
-          width={Math.max(130 + data.length * 30, 830)}
-          height={250}
-          margin={{ top: 20, right: 20, bottom: 10, left: 10 }}
-          data={dataCoordinates}
-        >
-          <CartesianGrid strokeDasharray="2 2" />
-          <XAxis dataKey="x" name="" unit="" />
-          <YAxis dataKey="y" name="" unit="" />
-          <Line type="monotone" dataKey="y" stroke="#82ca9d" />
-        </LineChart>
-      );
+    if (displayed !== true) {
+      // sequence is hidden, so we need no contents...
+      contents = null;
+    } else {
+      if (displayType === "values") {
+        contents = data.map((value, i) => (
+          <SequenceItem value={value} key={i} />
+        ));
+      } else if (displayType === "scatter") {
+        contents = getScatterChart(data);
+      } else if (displayType === "line") {
+        contents = getLineChart(data);
+      }
     }
 
     return (
       <div className="sequence">
-        {Close(id)}
+        {Close(id)(displayed)}
         <div className="sequence-name">
           <span className="sequence-type">{type}</span>
           {name}
