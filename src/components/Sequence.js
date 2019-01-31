@@ -112,6 +112,9 @@ class Sequence extends Component {
       }
     }
 
+    const hasError = maxValues < 0 || maxValues > 200;
+    const inputClassName = "input-max-value " + (hasError ? "error" : "");
+
     return (
       <div className="sequence">
         {Close(id)(displayed)}
@@ -121,7 +124,7 @@ class Sequence extends Component {
             {"max values: "}
             <input
               type="number"
-              className="input-max-value"
+              className={inputClassName}
               id={id + "-max-values"}
               value={maxValues}
               onChange={onChangeMaxValues(id)}

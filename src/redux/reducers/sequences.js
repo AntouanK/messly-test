@@ -9,7 +9,8 @@ import combined from "../../lib/generators/combined";
 import simple from "../../lib/generators/simple";
 
 const initialState = {
-  sequences: []
+  sequences: [],
+  errors: []
 };
 
 // helper to get a generator based on a string type
@@ -53,6 +54,13 @@ const getData = type => maxValues => {
   return data;
 };
 
+const getErrors = sequences =>
+  sequences
+    .filter(seq => seq.maxValues > 200 || seq.maxValues < 0)
+    .map(seq => ({
+      text: "A sequence has max values of " + seq.maxValues + "!"
+    }));
+
 //
 //
 export default function(state = initialState, action) {
@@ -64,9 +72,10 @@ export default function(state = initialState, action) {
         label = type.join(" + ");
       }
       const data = getData(type)(maxValues);
+      const id = "sequence-" + Date.now() + "-" + Math.random();
 
       let newSequence = {
-        id: "sequence-" + Date.now() + "-" + Math.random(),
+        id,
         label,
         type,
         maxValues,
@@ -79,7 +88,8 @@ export default function(state = initialState, action) {
 
       return {
         ...state,
-        sequences
+        sequences,
+        errors: getErrors(sequences)
       };
     }
 
@@ -129,7 +139,8 @@ export default function(state = initialState, action) {
         });
         return {
           ...state,
-          sequences: newSequences
+          sequences: newSequences,
+          errors: getErrors(newSequences)
         };
       }
     }

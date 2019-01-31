@@ -4,12 +4,19 @@ import Sequence from "./Sequence";
 
 class Sequences extends Component {
   render() {
-    const { sequences } = this.props;
+    const { sequences, errors } = this.props;
     return (
-      <div className="Sequences">
-        {sequences.map(sequence => (
-          <Sequence key={sequence.id} {...sequence} />
-        ))}
+      <div>
+        <div>
+          {errors.map(error => (
+            <div className="sequence-error">{error.text}</div>
+          ))}
+        </div>
+        <div className="Sequences">
+          {sequences.map(sequence => (
+            <Sequence key={sequence.id} {...sequence} />
+          ))}
+        </div>
       </div>
     );
   }
