@@ -1,7 +1,8 @@
 import { ADD_SEQUENCE } from "../action-types";
-import fibonacci from "../../lib/generators/fibonacci.js";
-import triangle from "../../lib/generators/triangle.js";
-import simple from "../../lib/generators/simple.js";
+import fibonacci from "../../lib/generators/fibonacci";
+import triangle from "../../lib/generators/triangle";
+import combined from "../../lib/generators/combined";
+import simple from "../../lib/generators/simple";
 
 const initialState = {
   sequences: []
