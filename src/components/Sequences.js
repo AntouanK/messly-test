@@ -8,12 +8,7 @@ class Sequences extends Component {
     return (
       <div className="Sequences">
         {sequences.map((sequence, i) => (
-          <Sequence
-            key={i}
-            data={sequence.data}
-            type={sequence.type}
-            maxValues={sequence.maxValues}
-          />
+          <Sequence key={i} {...sequence} />
         ))}
       </div>
     );

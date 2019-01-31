@@ -38,7 +38,7 @@ const getValues = generator => maxValues => {
 export default function(state = initialState, action) {
   switch (action.type) {
     case ADD_SEQUENCE: {
-      const { type, maxValues } = action.payload;
+      const { type, maxValues, displayType = "values" } = action.payload;
       let newType = type;
       let generator;
 
@@ -56,6 +56,7 @@ export default function(state = initialState, action) {
       let newSequence = {
         type: newType,
         maxValues,
+        displayType,
         data: getValues(generator)(maxValues)
       };
 

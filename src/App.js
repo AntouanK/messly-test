@@ -12,6 +12,12 @@ class App extends Component {
     store.dispatch(
       addSequence({ type: ["fibonacci", "triangle"], maxValues: 10 })
     );
+    store.dispatch(
+      addSequence({ type: "fibonacci", maxValues: 10, displayType: "scatter" })
+    );
+    store.dispatch(
+      addSequence({ type: "simple", maxValues: 40, displayType: "scatter" })
+    );
   }
 
   render() {
