@@ -7,7 +7,9 @@ import {
   XAxis,
   YAxis,
   ZAxis,
-  Scatter
+  Scatter,
+  LineChart,
+  Line
 } from "recharts";
 
 class Sequence extends Component {
@@ -35,6 +37,24 @@ class Sequence extends Component {
           <YAxis dataKey="y" name="" unit="" />
           <Scatter name="values" data={dataCoordinates} fill="#DCFCDC" />
         </ScatterChart>
+      );
+    } else if (displayType === "line") {
+      const dataCoordinates = data.map((value, i) => ({
+        x: i,
+        y: value
+      }));
+      contents = (
+        <LineChart
+          width={Math.max(130 + data.length * 30, 830)}
+          height={250}
+          margin={{ top: 20, right: 20, bottom: 10, left: 10 }}
+          data={dataCoordinates}
+        >
+          <CartesianGrid strokeDasharray="2 2" />
+          <XAxis dataKey="x" name="" unit="" />
+          <YAxis dataKey="y" name="" unit="" />
+          <Line type="monotone" dataKey="y" stroke="#82ca9d" />
+        </LineChart>
       );
     }
 
