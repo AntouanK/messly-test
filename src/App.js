@@ -9,6 +9,9 @@ class App extends Component {
   componentDidMount() {
     store.dispatch(addSequence({ type: "fibonacci", maxValues: 10 }));
     store.dispatch(addSequence({ type: "triangle", maxValues: 10 }));
+    store.dispatch(
+      addSequence({ type: ["fibonacci", "triangle"], maxValues: 10 })
+    );
   }
 
   render() {
