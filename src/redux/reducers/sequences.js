@@ -66,7 +66,7 @@ export default function(state = initialState, action) {
       const data = getData(type)(maxValues);
 
       let newSequence = {
-        id: "sequence-" + Date.now(),
+        id: "sequence-" + Date.now() + "-" + Math.random(),
         label,
         type,
         maxValues,
