@@ -1,4 +1,8 @@
-import { ADD_SEQUENCE, SET_SEQUENCE_DISPLAYED } from "../action-types";
+import {
+  ADD_SEQUENCE,
+  SET_SEQUENCE_DISPLAYED,
+  SET_SEQUENCE_MAX_VALUES
+} from "../action-types";
 import fibonacci from "../../lib/generators/fibonacci";
 import triangle from "../../lib/generators/triangle";
 import combined from "../../lib/generators/combined";
@@ -24,11 +28,28 @@ const getGenerator = type => {
 //
 // given a generator, and a nubmer of max values, we return a list
 // of that many values
-const getValues = generator => maxValues => {
+const getValuesFromGenerator = generator => maxValues => {
   const data = [];
   for (let i = 0; i < maxValues; i += 1) {
     data.push(generator.next().value);
   }
+  return data;
+};
+
+const getData = type => maxValues => {
+  let generator;
+
+  if (typeof type === "string") {
+    generator = getGenerator(type);
+  } else if (Array.isArray(type)) {
+    const sequencesToCombine = type
+      .map(getGenerator)
+      .map(getValuesFromGenerator)
+      .map(fn => fn(maxValues));
+    generator = combined(...sequencesToCombine);
+  }
+
+  const data = getValuesFromGenerator(generator)(maxValues);
   return data;
 };
 
@@ -39,25 +60,17 @@ export default function(state = initialState, action) {
     case ADD_SEQUENCE: {
       const { type, maxValues, displayType = "values" } = action.payload;
       let newType = type;
-      let generator;
-
-      if (typeof type === "string") {
-        generator = getGenerator(type);
-      } else if (Array.isArray(type)) {
+      if (Array.isArray(type)) {
         newType = type.join(" + ");
-        const sequencesToCombine = type
-          .map(getGenerator)
-          .map(getValues)
-          .map(fn => fn(maxValues));
-        generator = combined(...sequencesToCombine);
       }
+      const data = getData(type)(maxValues);
 
       let newSequence = {
         id: "sequence-" + Date.now(),
         type: newType,
         maxValues,
         displayType,
-        data: getValues(generator)(maxValues),
+        data,
         displayed: true
       };
 
@@ -84,6 +97,32 @@ export default function(state = initialState, action) {
         const newSequences = sequences.map(seq => {
           if (seq.id === id) {
             seq.displayed = displayed;
+          }
+          return seq;
+        });
+        return {
+          ...state,
+          sequences: newSequences
+        };
+      }
+    }
+
+    case SET_SEQUENCE_MAX_VALUES: {
+      const { sequences } = state;
+      const { id, maxValues } = action.payload;
+      if (typeof id !== "string" || typeof maxValues !== "number") {
+        throw new Error("wrong payload type");
+      }
+
+      const sequenceToModify = sequences.filter(s => s.id === id).pop();
+
+      if (sequenceToModify === undefined) {
+        return state;
+      } else {
+        const newSequences = sequences.map(seq => {
+          if (seq.id === id) {
+            seq.maxValues = maxValues;
+            seq.data = getData(seq.type)(maxValues);
           }
           return seq;
         });

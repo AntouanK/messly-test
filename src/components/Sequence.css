@@ -23,3 +23,7 @@
 .close-link:hover {
     opacity: 1;
 }
+
+.input-max-value {
+    width: 40px;
+}

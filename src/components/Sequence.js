@@ -10,7 +10,10 @@ import {
   LineChart,
   Line
 } from "recharts";
-import { setSequenceDisplayed } from "../redux/actions.js";
+import {
+  setSequenceDisplayed,
+  setSequenceMaxValues
+} from "../redux/actions.js";
 import store from "../redux/store";
 
 //
@@ -33,6 +36,18 @@ const Close = id => displayed => (
   </div>
 );
 
+const onChangeMaxValues = id => ev => {
+  const maxValues = +ev.target.value;
+  store.dispatch(
+    setSequenceMaxValues({
+      id,
+      maxValues
+    })
+  );
+};
+
+//
+//
 const getScatterChart = data => {
   const dataCoordinates = data.map((value, i) => ({
     x: i,
@@ -40,7 +55,7 @@ const getScatterChart = data => {
   }));
   return (
     <ScatterChart
-      width={Math.max(130 + data.length * 30, 830)}
+      width={Math.min(100 + data.length * 30, 900)}
       height={250}
       margin={{ top: 20, right: 20, bottom: 10, left: 10 }}
     >
@@ -52,6 +67,8 @@ const getScatterChart = data => {
   );
 };
 
+//
+//
 const getLineChart = data => {
   const dataCoordinates = data.map((value, i) => ({
     x: i,
@@ -77,7 +94,6 @@ const getLineChart = data => {
 class Sequence extends Component {
   render() {
     const { id, data, type, maxValues, displayType, displayed } = this.props;
-    const name = ` up to ${maxValues}`;
 
     let contents;
 
@@ -101,7 +117,14 @@ class Sequence extends Component {
         {Close(id)(displayed)}
         <div className="sequence-name">
           <span className="sequence-type">{type}</span>
-          {name}
+          {" up to "}
+          <input
+            type="number"
+            className="input-max-value"
+            id={id + "-max-values"}
+            value={maxValues}
+            onChange={onChangeMaxValues(id)}
+          />
         </div>
         {contents}
       </div>
