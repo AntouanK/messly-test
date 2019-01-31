@@ -9,7 +9,9 @@ class Sequences extends Component {
       <div>
         <div>
           {errors.map(error => (
-            <div className="sequence-error">{error.text}</div>
+            <div className="sequence-error" key={error.sequenceId}>
+              {error.text}
+            </div>
           ))}
         </div>
         <div className="Sequences">

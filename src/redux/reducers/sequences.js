@@ -58,6 +58,7 @@ const getErrors = sequences =>
   sequences
     .filter(seq => seq.maxValues > 200 || seq.maxValues < 0)
     .map(seq => ({
+      sequenceId: seq.id,
       text: "A sequence has max values of " + seq.maxValues + "!"
     }));
 
